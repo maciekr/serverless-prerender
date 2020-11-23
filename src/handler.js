@@ -45,7 +45,7 @@ exports.handler = async(event, context, callback) => {
 			waitUntil: ["domcontentloaded", "networkidle2"]
 		})
 		console.log("load the page")
-		result = await page.evaluate(() => document.body.innerHTML);
+		result = await page.evaluate(() => document.documentElement.outerHTML);
 		console.log("got the evaluate result")
 		Object.assign(headers, {"Content-Type": "text/html"});
 		return callback(null, {
