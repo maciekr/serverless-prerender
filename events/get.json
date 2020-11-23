@@ -1,0 +1,6 @@
+{
+		"httpMethod": "GET",
+		"queryStringParameters": {
+			"url": "https://www.example.com"
+		}
+}

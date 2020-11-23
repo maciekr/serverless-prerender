@@ -1,0 +1,39 @@
+service: prerender-lambda
+
+provider:
+    name: aws
+    runtime: nodejs10.x
+    memorySize: 768
+    timeout: 30
+    region: eu-west-1
+   
+functions:
+    prerender-function:
+        handler: src/handler.handler
+        environment:
+            DEBUG: 0
+		events:
+			- http:
+				path: /
+				method: get
+				cors: true
+				request:
+					parameters:
+				    	querystrings:
+							url: true				            
+
+package:
+    exclude:
+        - node_modules/puppeteer/.local-chromium/**
+
+custom:
+    chrome:
+        flags:
+            - --window-size=1280,1696 # Letter size
+            - --hide-scrollbars
+            - --ignore-certificate-errors
+        functions:
+            - prerender-function		
+
+plugins:
+	- serverless-offline			
